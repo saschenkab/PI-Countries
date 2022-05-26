@@ -2,7 +2,7 @@ const axios = require("axios");
 const { Country } = require("../db");
 
 const getCountries = async () => {
-  let countries = undefined;
+  let countries = [];
 
   try {
     countries = await axios.get("https://restcountries.com/v3.1/all");
@@ -17,8 +17,8 @@ const getCountries = async () => {
       capital: country.capital,
       population: country.population,
       flag: country.flags.png,
-      region: country.region,
-      //   subregion: country.subregion,
+      // region: country.region,
+      subregion: country.subregion,
       //   timezones: country.timezones,
       continent: country.continents[0],
       code: country.cca3,
@@ -33,11 +33,12 @@ const getCountries = async () => {
         capital: country.capital ? country.capital[0] : "Capital not found",
         population: country.population,
         flag: country.flag,
-        region: country.region,
-        // subregion: country.subregion,
+        subregion: country.subregion
+          ? country.subregion
+          : "Subregion not found",
         // timezones: country.timezones,
         continent: country.continent,
-        id: country.code,
+        alpha_code: country.code,
         area: country.area,
       },
     });

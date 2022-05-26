@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("country", {
-    id: {
+    alpha_code: {
       type: DataTypes.STRING(3),
       primaryKey: true,
       unique: true,
@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    region: {
+    subregion: {
       type: DataTypes.STRING,
       allowNull: false,
     },

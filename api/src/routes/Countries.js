@@ -17,7 +17,14 @@ countries.get("/", async (req, res) => {
             [Op.iLike]: "%" + name + "%",
           },
         },
-        attributes: ["id", "name", "flag", "continent", "capital", "region"],
+        attributes: [
+          "alpha_code",
+          "name",
+          "flag",
+          "continent",
+          "capital",
+          "subregion",
+        ],
         include: { model: Activity },
       });
 
@@ -33,6 +40,32 @@ countries.get("/", async (req, res) => {
   }
   const countries = await getCountries();
   return res.json(countries);
+});
+
+countries.get("/country/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const country = await Country.findByPk(id.toUpperCase(), {
+      attributes: [
+        "alpha_code",
+        "name",
+        "flag",
+        "continent",
+        "capital",
+        "subregion",
+      ],
+      include: { model: Activity },
+    });
+    if (country) {
+      return res.send(country);
+    } else {
+      return res.status(404).json({ message: "Country not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.json({ error: "The country does not exist" });
+  }
 });
 
 module.exports = countries;
