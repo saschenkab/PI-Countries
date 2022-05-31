@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     alpha_code: {
       type: DataTypes.STRING(3),
       primaryKey: true,
-      unique: true,
+      allowNull: false,
     },
 
     name: {

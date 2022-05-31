@@ -2,7 +2,7 @@ const { Router } = require("express");
 const axios = require("axios");
 const { Country, Activity } = require("../db");
 const { Op } = require("sequelize");
-const getCountries = require("../Controller/index");
+const { getCountries, apiCountries } = require("../Controller/index");
 
 const countries = Router();
 
@@ -38,7 +38,7 @@ countries.get("/", async (req, res) => {
       return res.json({ error: "The country does not exist" });
     }
   }
-  const countries = await getCountries();
+  const countries = await apiCountries();
   return res.json(countries);
 });
 
