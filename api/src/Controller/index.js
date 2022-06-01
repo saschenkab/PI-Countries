@@ -7,39 +7,32 @@ const apiCountries = async () => {
   try {
     let countries = (await axios.get("https://restcountries.com/v3.1/all"))
       .data;
+    // console.log(countries);
+    countries = await Promise.all(
+      countries?.map((country) => {
+        Country.bulkCreate({
+          where: {
+            alpha_code: country.cca3,
+            name: country.name.common,
+            capital: country.capital ? country.capital[0] : "Capital not found",
+            flag: country.flags.png,
+            area: country.area,
+            subregion: country.subregion
+              ? country.subregion
+              : "Subregion not found",
+            continent: country.continents[0],
+            population: country.population,
+          },
+        });
+      })
+    );
 
-    countries = countries?.map((country) => {
-      return {
-        alpha_code: country.cca3,
-        name: country.name.official,
-        capital: country.capital ? country.capital[0] : "Capital not found",
-        flag: country.flags.png,
-        area: country.area,
-        subregion: country.subregion
-          ? country.subregion
-          : "Subregion not found",
-        continent: country.continents[0],
-        population: country.population,
-      };
-    });
-    // countries = countries.data;
-    countries?.map(async (country) => {
-      // console.log(countries);
-      await Country.bulkCreate({
-        where: {
-          name: country.name,
-          capital: country.capital,
-          population: country.population,
-          flag: country.flag,
-          // region: country.region,
-          subregion: country.subregion,
-          // timezones: country.timezones,
-          continent: country.continent,
-          alpha_code: country.alpha_code,
-          area: country.area,
-        },
-      });
-    });
+    // console.log(countries);
+    // countries?.map(async (country) => {
+    // await Country.bulkCreate(countries);
+    // });
+
+    // console.log(countries);
 
     const results = await Country.findAll({
       attributes: [
@@ -50,7 +43,9 @@ const apiCountries = async () => {
         "capital",
         "subregion",
       ],
+      include: Activity,
     });
+    // console.log(results);
     return results;
   } catch (error) {
     console.log(error);
