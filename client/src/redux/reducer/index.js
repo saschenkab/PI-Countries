@@ -28,6 +28,18 @@ const rootReducer = (state = initialState, action) => {
         countriesFiltered: action.payload,
       };
 
+    case GET_COUNTRY_BY_NAME:
+      return {
+        ...state,
+        country: action.payload,
+      };
+
+    case GET_COUNTRY:
+      return {
+        ...state,
+        country: action.payload,
+      };
+
     default:
       return state;
   }

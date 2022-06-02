@@ -26,10 +26,55 @@ export const getCountriesAction = () => async (dispatch) => {
 
   const response = await axios.get(getCountries);
 
-  console.log(response.data);
+  // console.log(response.data);
 
   dispatch({
     type: GET_COUNTRIES,
+    payload: response.data,
+  });
+
+  dispatch({
+    type: SET_LOADING,
+    payload: false,
+  });
+};
+
+export const getCountriesByNameAction = (payload) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+
+  const response = await axios.get(`${getCountryByName}${payload}`);
+
+  console.log(response.data);
+
+  dispatch({
+    type: GET_COUNTRY_BY_NAME,
+    payload: response.data,
+  });
+
+  dispatch({
+    type: SET_LOADING,
+    payload: false,
+  });
+};
+
+export const getCountryAction = (payload) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+
+  console.log(payload);
+  const response = await axios.get(
+    `http://localhost:3001/countries/country/${payload}`
+  );
+
+  console.log(response.data);
+
+  dispatch({
+    type: GET_COUNTRY,
     payload: response.data,
   });
 

@@ -15,9 +15,9 @@ const Cards = ({ countries }) => {
 
   if (loading) {
     return (
-      <div className="loading">
+      <>
         <Loader />
-      </div>
+      </>
     );
   }
 
@@ -38,7 +38,6 @@ const Cards = ({ countries }) => {
       ) : (
         <Loader />
       )}
-      <h1>hello</h1>
     </>
   );
 };

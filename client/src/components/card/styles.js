@@ -36,6 +36,7 @@ export const CardBody = styled.div`
   display: flex;
   flex-flow: column;
   align-content: center;
+  justify-content: space-between;
   margin-top: 3px;
 
   transition: all 0.2s ease-out;
