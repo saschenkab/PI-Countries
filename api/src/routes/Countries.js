@@ -38,7 +38,7 @@ countries.get("/", async (req, res) => {
       return res.json({ error: "The country does not exist" });
     }
   }
-  const countries = await apiCountries();
+  const countries = await getCountries();
   return res.json(countries);
 });
 
@@ -54,6 +54,8 @@ countries.get("/country/:id", async (req, res) => {
         "continent",
         "capital",
         "subregion",
+        "population",
+        "area",
       ],
       include: { model: Activity },
     });

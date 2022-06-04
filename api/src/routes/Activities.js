@@ -3,7 +3,7 @@ const { Country, Activity } = require("../db");
 const activity = Router();
 
 activity.post("/createActivity", async (req, res) => {
-  const { name, difficulty, duration, season, country } = req.body;
+  const { name, difficulty, duration, seasons, countries } = req.body;
 
   try {
     const newActivity = await Activity.create({
@@ -11,11 +11,11 @@ activity.post("/createActivity", async (req, res) => {
       name,
       difficulty,
       duration,
-      season,
+      seasons,
     });
 
-    if (country) {
-      await newActivity.addCountries(country);
+    if (countries) {
+      await newActivity.addCountries(countries);
     }
 
     if (newActivity) {
@@ -29,7 +29,30 @@ activity.post("/createActivity", async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Error creating activity" });
+    res.status(500).json({ message: error.message });
+  }
+});
+
+activity.get("/activities", async (req, res) => {
+  try {
+    const activities = await Activity.findAll({
+      include: [
+        {
+          model: Country,
+          as: "countries",
+          attributes: ["name"],
+        },
+      ],
+    });
+
+    if (activities) {
+      res.status(200).json({ activities });
+    } else {
+      res.status(400).json({ message: "No activities found" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Error getting activities" });
   }
 });
 
