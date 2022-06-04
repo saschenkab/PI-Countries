@@ -3,6 +3,7 @@ import {
   GET_COUNTRIES,
   GET_COUNTRY,
   GET_COUNTRY_BY_NAME,
+  GET_ACTIVITIES,
   CREATE_ACTIVITY,
   SET_LOADING,
   CLEAN,
@@ -16,6 +17,7 @@ import {
   getCountry,
   getCountryByName,
   createActivity,
+  getActivities,
 } from "../utils/endpoints";
 
 export const getCountriesAction = () => async (dispatch) => {
@@ -66,7 +68,7 @@ export const getCountryAction = (payload) => async (dispatch) => {
     payload: true,
   });
 
-  console.log(payload);
+  // console.log(payload);
   const response = await axios.get(
     `http://localhost:3001/countries/country/${payload}`
   );
@@ -82,4 +84,40 @@ export const getCountryAction = (payload) => async (dispatch) => {
     type: SET_LOADING,
     payload: false,
   });
+};
+
+export const getActivitiesAction = () => async (dispatch) => {
+  const response = await axios.get(getActivities);
+  dispatch({
+    type: GET_ACTIVITIES,
+    payload: response.data,
+  });
+};
+
+export const filterByContinentAction = (payload) => {
+  return {
+    type: FILTER_BY_CONTINENT,
+    payload,
+  };
+};
+
+export const filterByActivityAction = (payload) => {
+  return {
+    type: FILTER_BY_ACTIVITY,
+    payload,
+  };
+};
+
+export const orderByPopulationAction = (payload) => {
+  return {
+    type: ORDER_BY_POPULATION,
+    payload,
+  };
+};
+
+export const orderAction = (payload) => {
+  return {
+    type: ORDER,
+    payload,
+  };
 };

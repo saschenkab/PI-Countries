@@ -13,7 +13,7 @@ export const CardContainer = styled.div`
 
   &:hover {
     border-color: #432818;
-    box-shadow: -3px -3px 5px 1px rgba(67, 40, 24, 0.8);
+    box-shadow: 0px 0px 5px 0px rgba(67, 40, 24, 0.6);
 
  &:hover button {
    transform: translate(-50%, 50%);
@@ -50,7 +50,7 @@ export const CardTitle = styled.h2`
   max-width: fit-content;
   max-height: 3.6em;
   word-wrap: break-word;
-  line-height: 1em;
+  line-height: 1.7em;
   color: #432818;
   font-size: 18px;
   font-weight: 600;
@@ -91,4 +91,27 @@ export const CardButton = styled.button`
   opacity: 0;
   transition: 0.3s ease-out;
   cursor: pointer;
+`;
+
+export const AlphaCode = styled.button`
+  transform: translate(-90%, 125%);
+  width: 40%;
+  border-radius: 10px;
+  border: none;
+  background-color: #ffe6a7;
+  color: #fff;
+  // font-weight: 600;
+  letter-spacing: 0.5rem;
+  font-size: 1rem;
+  padding: 3px 4px;
+  position: absolute;
+  left: 70%;
+  bottom: 50%;
+  opacity: 0;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+
+  color: #6f1d1b;
+  text-align: center;
+  box-shadow: 0px 0px 2px 1.2px rgba(67, 40, 24, 0.6);
 `;

@@ -1,40 +1,40 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCountriesByNameAction } from "../../redux/actions";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
 
-  const [search, setSearch] = useState("");
+  const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!search.length) {
+    if (!name.length) {
       alert("Please enter a country name");
     }
-    dispatch(getCountriesByNameAction(search, dispatch));
-    setSearch("");
+    dispatch(getCountriesByNameAction(name, dispatch));
+    setName("");
   };
 
   const handleKeyChange = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      dispatch(getCountriesByNameAction(search, dispatch));
-      setSearch("");
+      dispatch(getCountriesByNameAction(name, dispatch));
+      setName("");
     }
   };
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
+    setName(e.target.value);
   };
 
   return (
     <div>
       <input
+        value={name}
         type="text"
-        placeholder="Search"
-        value={search}
+        placeholder="Search for a country"
         onKeyDown={handleKeyChange}
         onChange={handleInputChange}
       />

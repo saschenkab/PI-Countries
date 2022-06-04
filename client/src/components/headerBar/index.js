@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import mapamundi from "../../common/images/mapamundi.png";
 import SearchBar from "../searchbar";
+import { getCountriesByNameAction } from "../../redux/actions";
+
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -20,10 +23,19 @@ const Container = styled.div`
 `;
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const [reRender, setReRender] = useState(true);
+
+  const handleChange = () => {
+    dispatch(getCountriesByNameAction("", dispatch));
+    setReRender(false);
+  };
+
   return (
     <Container>
       <Link to="/home">
-        <Container>
+        <Container onClick={handleChange}>
           <img src={mapamundi} alt="mapamundi" />
           <h2>Countries</h2>
         </Container>

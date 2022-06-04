@@ -28,6 +28,17 @@ const CountryDetail = () => {
     );
   }
 
+  let area = country.area;
+  let population = country.population;
+  let nf = Intl.NumberFormat();
+  if (area && population) {
+    // nf.format(area);
+    // population = nf.format(population);
+    area = nf.format(area);
+    population = String(population).replace(/(.)(?=(\d{3})+$)/g, "$1,");
+    // area = String(area).replace(/(.)(?=(\d{3})+$)/g, "$1,");
+  }
+
   return (
     <>
       <Header />
@@ -41,9 +52,23 @@ const CountryDetail = () => {
             <h3>{country?.alpha_code}</h3>
             <p>{country?.continent}</p>
             <p>{country?.subregion}</p>
-            <p>{country?.population}</p>
+            <p>{population}</p>
             <p>{country?.capital}</p>
-            <p>{country?.area}</p>
+            <p>{area} km2</p>
+            <ul>
+              {country.activities ? (
+                country.activities.map((activity) => (
+                  <span>
+                    <li>{activity.name}</li>
+                    <li>{activity.difficulty}</li>
+                    <li>{activity.duration}</li>
+                    <li>{activity.season}</li>
+                  </span>
+                ))
+              ) : (
+                <p>No activities</p>
+              )}
+            </ul>
           </div>
         </div>
       </Container>

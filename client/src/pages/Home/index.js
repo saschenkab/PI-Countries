@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cards from "../../components/cards";
 import Header from "../../components/headerBar";
-import { getCountriesAction } from "../../redux/actions/index";
+import {
+  getActivitiesAction,
+  getCountriesAction,
+} from "../../redux/actions/index";
 import styled from "styled-components";
+import Filters from "../../components/filters";
+import { getActivities } from "../../redux/utils/endpoints";
+import Order from "../../components/order";
 
 const Body = styled.div`
   display: flex;
@@ -15,23 +21,19 @@ const Countries = styled.div`
   width: 80%;
 `;
 
-const Filters = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-`;
-
 const Home = () => {
   const dispatch = useDispatch();
-  const countries = useSelector((state) => state.countries);
+  const countriesFiltered = useSelector((state) => state.countriesFiltered);
 
   useEffect(() => {
     dispatch(getCountriesAction());
+    dispatch(getActivitiesAction());
   }, [dispatch]);
 
   return (
     <>
       <Header />
+      <Order />
       <Body>
         <Filters>
           <h2>Filters</h2>
@@ -41,7 +43,7 @@ const Home = () => {
           </p>
         </Filters>
         <Countries>
-          <Cards countries={countries} />
+          <Cards countries={countriesFiltered} />
         </Countries>
       </Body>
     </>

@@ -7,11 +7,13 @@ import {
   CardTitle,
   CardContinent,
   CardButton,
+  AlphaCode,
 } from "./styles";
 
 const Card = ({ alpha_code, flag, name, continent }) => {
   return (
     <CardContainer>
+      <AlphaCode>{alpha_code}</AlphaCode>
       <CardBody>
         <Flag src={flag} alt="" />
         <CardTitle>{name}</CardTitle>
