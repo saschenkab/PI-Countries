@@ -25,11 +25,11 @@ const Container = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
 
-  const [reRender, setReRender] = useState(true);
+  // const [reRender, setReRender] = useState("");
 
   const handleChange = () => {
     dispatch(getCountriesByNameAction("", dispatch));
-    setReRender(false);
+    // setReRender("");
   };
 
   return (

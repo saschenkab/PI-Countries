@@ -65,11 +65,6 @@ const Filters = () => {
   const selectedContinent = useSelector((state) => state.selectedContinent);
   const selectedActivity = useSelector((state) => state.selectedActivity);
 
-  useEffect(() => {
-    dispatch(getCountriesAction());
-    dispatch(getActivitiesAction());
-  }, [dispatch]);
-
   const handleSelectedContinent = (continent) => {
     dispatch(filterByContinentAction(continent));
   };
@@ -79,15 +74,14 @@ const Filters = () => {
   };
 
   const continents = countries.map((country) => country.continent);
-  console.log(continents);
+
   const filterContinent = continents.reduce((acc, continent) => {
     if (!acc.includes(continent)) {
       acc.push(continent);
     }
     return acc;
   }, []);
-  console.log(handleSelectedActivity);
-  console.log(filterByActivityAction);
+
   return (
     <Container>
       <FilterContinent>

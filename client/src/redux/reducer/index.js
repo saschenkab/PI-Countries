@@ -23,7 +23,6 @@ const initialState = {
 };
 
 const rootReducer = (state = initialState, action) => {
-  console.log(state.countries);
   switch (action.type) {
     case GET_COUNTRIES:
       return {
@@ -55,9 +54,6 @@ const rootReducer = (state = initialState, action) => {
       const filteredActivity = countries.filter((country) =>
         country.activities.find((activity) => activity.name === action.payload)
       );
-      console.log(countries);
-      console.log(action.payload);
-      console.log(filteredActivity);
 
       return {
         ...state,
@@ -71,8 +67,6 @@ const rootReducer = (state = initialState, action) => {
       const filteredContinent = continents.filter((country) =>
         country.continent.includes(action.payload)
       );
-
-      console.log(filteredContinent);
 
       return {
         ...state,
